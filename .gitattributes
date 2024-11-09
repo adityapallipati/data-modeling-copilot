@@ -1,0 +1,11 @@
+# FLAN-T5 Model Files
+models/flan-t5-base/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
+# MPNet Model Files
+models/all-mpnet-base-v2/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
+# Generic Model Files
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
+*.h5 filter=lfs diff=lfs merge=lfs -text
+*.model filter=lfs diff=lfs merge=lfs -text
+*.onnx filter=lfs diff=lfs merge=lfs -text

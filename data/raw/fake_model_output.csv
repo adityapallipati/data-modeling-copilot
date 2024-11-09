@@ -1,0 +1,2 @@
+cust_id,pred_prob,seg_1_feat,last_seg,feat_imp_A1,feat2_B,prev_prod_purchases_3mo,model_score,churn_ind,dt_last_active,age_grp_1,inc_seg,behavior_metric_x,final_label
+1001,0.8765,high_value,seg_A,0.456,0.789,3,0.9123,0,2024-01-15,35_44,inc_4,87.23,1

@@ -1,0 +1,77 @@
+DATA MODELING STANDARDS v1.2
+===========================
+
+1. NAMING CONVENTIONS
+-------------------
+a) Column Name Format:
+   - Use UPPER_SNAKE_CASE
+   - Prefix with domain where applicable
+   - No spaces or special characters except underscore
+   - Maximum length: 30 characters
+
+b) Common Transformations:
+   pred_prob -> PREDICTION_PROBABILITY
+   model_score -> MODEL_SCORE_PCT
+   seg_* -> SEGMENT_*
+   feat_* -> FEATURE_*
+   *_ind -> *_INDICATOR
+   dt_* -> *_DATE
+   *_grp -> *_GROUP
+   inc_* -> INCOME_*
+
+2. DATA TYPES
+------------
+a) Probabilities and Scores:
+   - NUMBER(10,8)
+   - NOT NULL
+   - Range validation: 0 to 1
+
+b) Dates:
+   - DATE
+   - NULL allowed for future dates only
+   - Format: YYYY-MM-DD
+
+c) Categorical Variables:
+   - VARCHAR2(50)
+   - NOT NULL
+   - Must have corresponding lookup table
+
+d) Indicators:
+   - NUMBER(1)
+   - NOT NULL
+   - Valid values: 0,1
+
+3. STANDARD SUFFIXES
+------------------
+_PCT: Percentage values
+_NUM: Count or quantity
+_AMT: Monetary amounts
+_CD: Codes
+_DESC: Descriptions
+_DT: Date fields
+_IND: Indicators (0/1)
+_ID: Unique identifiers
+
+4. EXAMPLE TRANSFORMATIONS
+------------------------
+Original -> Standard Format:
+model_score -> MODEL_SCORE_PCT NUMBER(10,8) NOT NULL
+pred_prob -> PREDICTION_PROBABILITY NUMBER(10,8) NOT NULL
+seg_1_feat -> SEGMENT_FEATURE_1 VARCHAR2(50) NOT NULL
+last_seg -> LAST_SEGMENT_CD VARCHAR2(50) NOT NULL
+feat_imp_A1 -> FEATURE_IMPORTANCE_A1 NUMBER(10,8) NOT NULL
+feat2_B -> FEATURE_B2_SCORE NUMBER(10,8) NOT NULL
+churn_ind -> CHURN_INDICATOR NUMBER(1) NOT NULL
+dt_last_active -> LAST_ACTIVE_DATE DATE NOT NULL
+age_grp_1 -> AGE_GROUP_CD VARCHAR2(50) NOT NULL
+inc_seg -> INCOME_SEGMENT_CD VARCHAR2(50) NOT NULL
+behavior_metric_x -> BEHAVIOR_METRIC_SCORE NUMBER(10,8) NOT NULL
+final_label -> TARGET_LABEL_IND NUMBER(1) NOT NULL
+
+5. VALIDATION RULES
+-----------------
+- All score columns must be between 0 and 1
+- Date columns must not be future dates unless explicitly allowed
+- Categorical variables must match lookup table values
+- No NULL values unless explicitly allowed
+- VARCHAR fields must be UPPER CASE
