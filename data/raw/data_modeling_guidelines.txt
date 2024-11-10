@@ -1,77 +1,68 @@
-DATA MODELING STANDARDS v1.2
-===========================
-
 1. NAMING CONVENTIONS
 -------------------
-a) Column Name Format:
-   - Use UPPER_SNAKE_CASE
-   - Prefix with domain where applicable
-   - No spaces or special characters except underscore
-   - Maximum length: 30 characters
+a) Logical Name Format:
+   - Title Case (First Letter Each Word Capitalized)
+   - Full Words (No Abbreviations)
+   - Spaces Between Words
+   - Maximum 50 Characters
 
-b) Common Transformations:
-   pred_prob -> PREDICTION_PROBABILITY
-   model_score -> MODEL_SCORE_PCT
-   seg_* -> SEGMENT_*
-   feat_* -> FEATURE_*
-   *_ind -> *_INDICATOR
-   dt_* -> *_DATE
-   *_grp -> *_GROUP
-   inc_* -> INCOME_*
+b) Physical Name Format:
+   - UPPER_SNAKE_CASE
+   - Maximum 30 Characters
+   - Only Underscores as Special Characters
+   - Must End with Type Suffix
 
-2. DATA TYPES
+2. DATA TYPE STANDARDS
+--------------------
+a) Identifiers:
+   - NUMBER(38,0) for Surrogate Keys
+   - VARCHAR(50) for Natural Keys
+   - Suffix: _ID, _NUM, _KEY
+
+b) Dates and Timestamps:
+   - DATE for Calendar Dates
+   - TIMESTAMP_NTZ for Timestamps
+   - Suffix: _DT, _TS
+
+c) Numeric Measures:
+   - NUMBER(10,8) for Probabilities/Scores
+   - NUMBER(15,2) for Currency/Amounts
+   - NUMBER(5,2) for Percentages
+   - Suffix: _PCT, _AMT, _SCORE
+
+d) Categorical:
+   - VARCHAR(1) for Flags
+   - VARCHAR(20) for Codes
+   - VARCHAR(100) for Descriptions
+   - Suffix: _FLAG, _CD, _DESC
+
+3. COMMON ABBREVIATIONS
+---------------------
+cust -> CUSTOMER
+dt -> DATE
+ts -> TIMESTAMP
+num -> NUMBER
+amt -> AMOUNT
+feat -> FEATURE
+imp -> IMPORTANCE
+pred -> PREDICTION
+grp -> GROUP
+bkt -> BUCKET
+prob -> PROBABILITY
+
+4. DOMAIN SPECIFIC
+----------------
+a) ML Model Outputs:
+   - Probabilities: NUMBER(10,8), suffix _PROBABILITY
+   - Feature Importance: NUMBER(10,8), suffix _IMPORTANCE
+   - Predictions: Match Target Variable Type
+   - Confidence: NUMBER(10,8), suffix _CONFIDENCE
+   - Model Metadata: VARCHAR(50), suffix _CD
+
+5. NULLABILITY
 ------------
-a) Probabilities and Scores:
-   - NUMBER(10,8)
-   - NOT NULL
-   - Range validation: 0 to 1
-
-b) Dates:
-   - DATE
-   - NULL allowed for future dates only
-   - Format: YYYY-MM-DD
-
-c) Categorical Variables:
-   - VARCHAR2(50)
-   - NOT NULL
-   - Must have corresponding lookup table
-
-d) Indicators:
-   - NUMBER(1)
-   - NOT NULL
-   - Valid values: 0,1
-
-3. STANDARD SUFFIXES
-------------------
-_PCT: Percentage values
-_NUM: Count or quantity
-_AMT: Monetary amounts
-_CD: Codes
-_DESC: Descriptions
-_DT: Date fields
-_IND: Indicators (0/1)
-_ID: Unique identifiers
-
-4. EXAMPLE TRANSFORMATIONS
-------------------------
-Original -> Standard Format:
-model_score -> MODEL_SCORE_PCT NUMBER(10,8) NOT NULL
-pred_prob -> PREDICTION_PROBABILITY NUMBER(10,8) NOT NULL
-seg_1_feat -> SEGMENT_FEATURE_1 VARCHAR2(50) NOT NULL
-last_seg -> LAST_SEGMENT_CD VARCHAR2(50) NOT NULL
-feat_imp_A1 -> FEATURE_IMPORTANCE_A1 NUMBER(10,8) NOT NULL
-feat2_B -> FEATURE_B2_SCORE NUMBER(10,8) NOT NULL
-churn_ind -> CHURN_INDICATOR NUMBER(1) NOT NULL
-dt_last_active -> LAST_ACTIVE_DATE DATE NOT NULL
-age_grp_1 -> AGE_GROUP_CD VARCHAR2(50) NOT NULL
-inc_seg -> INCOME_SEGMENT_CD VARCHAR2(50) NOT NULL
-behavior_metric_x -> BEHAVIOR_METRIC_SCORE NUMBER(10,8) NOT NULL
-final_label -> TARGET_LABEL_IND NUMBER(1) NOT NULL
-
-5. VALIDATION RULES
------------------
-- All score columns must be between 0 and 1
-- Date columns must not be future dates unless explicitly allowed
-- Categorical variables must match lookup table values
-- No NULL values unless explicitly allowed
-- VARCHAR fields must be UPPER CASE
+- Primary Keys: NOT NULL
+- Foreign Keys: NOT NULL
+- Timestamps: NOT NULL for Audit Fields
+- Scores/Probabilities: NOT NULL
+- Optional Attributes: NULL Allowed
