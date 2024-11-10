@@ -170,3 +170,6 @@ index_*.bin
 *.parquet
 /chroma/
 .chroma/
+
+# VSCode settings
+.vscode
