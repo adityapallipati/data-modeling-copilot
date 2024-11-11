@@ -1,3 +1,5 @@
+# LightRAG Process for Data Modeling Copilot
+
 ```mermaid
 flowchart TD
     subgraph "Document Processing"
