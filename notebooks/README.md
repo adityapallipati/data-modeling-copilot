@@ -158,7 +158,7 @@ mindmap
             Distributed Processing
             Efficient Indexing
             Real-time Updates
-        Privacy & Security
+        Privacy and Security
             Federated Learning
             Encrypted Search
             Access Control
